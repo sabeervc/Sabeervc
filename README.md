@@ -1,8 +1,3 @@
 ## Hi there 👋
 
-<!--
-**sabeervc/Sabeervc** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
 I am Sabeer, Vadakke Cholakkakath, currently working as a Research Associate in Trade Analytics division of Indian Institute of Foreign Trade Delhi. I am also a Ph.D. Candidate at the Centre for Development Studies (CDS) in Thiruvananthapuram, affiliated with Jawaharlal Nehru University, Delhi, India. My doctoral research is dedicated to investigating the intricate relationship between international migration and international trade. I am passionate about working on issues related to migration and trade policies, as they have significant implications for economic development. Join me as we navigate through the nuances of migration and trade dynamics, uncovering insights that shape our local and global economy. 
