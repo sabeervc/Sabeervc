@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sabeer VC — Economist & Researcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a2e;
+      --paper: #f8f5f0;
+      --accent: #c0392b;
+      --muted: #6b6b7b;
+      --border: #e0dbd3;
+      --warm: #f0ebe3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(248, 245, 240, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem 4rem;
+      position: relative;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline {
+      border: 1px solid var(--ink);
+      color: var(--ink);
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--paper); }
+
+    .hero-right {
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-graphic {
+      position: relative;
+      width: 360px;
+      height: 360px;
+    }
+
+    .hero-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    .hero-circle:nth-child(1) { inset: 0; }
+    .hero-circle:nth-child(2) { inset: 40px; border-color: #c0392b33; }
+    .hero-circle:nth-child(3) { inset: 80px; }
+    .hero-circle:nth-child(4) { inset: 120px; border-color: #c0392b33; }
+
+    .hero-initials {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--ink);
+      opacity: 0.06;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 3rem;
+    }
+
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+
+    .affiliations { margin-top: 2rem; }
+    .affiliation-item {
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .affil-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 0.5rem;
+    }
+    .affil-title { font-weight: 500; font-size: 0.95rem; }
+    .affil-sub { font-size: 0.85rem; color: var(--muted); }
+
+    /* RESEARCH */
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .research-card {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .research-card:hover {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-accent-line {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .card-body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* READING SHELF */
+    .shelf-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .tab-btn {
+      padding: 0.75rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .tab-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+    .shelf-list { display: none; }
+    .shelf-list.active { display: block; }
+
+    .shelf-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .shelf-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      color: var(--border);
+      font-weight: 700;
+      min-width: 2rem;
+    }
+    .shelf-info { flex: 1; }
+    .shelf-title { font-weight: 500; font-size: 0.95rem; }
+    .shelf-author { font-size: 0.82rem; color: var(--muted); }
+
+    /* CONTACT */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-intro {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .contact-detail {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .contact-value { font-size: 0.9rem; color: var(--ink); }
+    .contact-value a { color: inherit; text-decoration: none; }
+    .contact-value a:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+    }
+    footer span { color: rgba(255,255,255,0.8); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left > * {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 7rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .research-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Sabeer VC</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#reading">Reading Shelf</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Economist · Researcher · PhD Candidate</div>
+      <h1>Vadakke Cholakkakath<br>Sabeer</h1>
+      <div class="hero-subtitle">Trade, Migration & Development</div>
+      <p class="hero-bio">
+        Research Associate at IIFT Delhi and PhD Candidate at Centre for Development Studies, 
+        investigating the intricate relationship between international migration and trade.
+      </p>
+      <div class="hero-ctas">
+        <a href="#research" class="btn btn-primary">View Research</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-graphic">
+        <div class="hero-circle"></div>
+        <div class="hero-circle"></div>
+        <div class="hero-circle"></div>
+        <div class="hero-circle"></div>
+        <div class="hero-initials">SVC</div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">IIFT</span>
+          <span class="stat-label">New Delhi</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">CDS</span>
+          <span class="stat-label">Trivandrum</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">JNU</span>
+          <span class="stat-label">Affiliated</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I am Sabeer VC, a researcher specializing in the economics of international trade and migration. 
+          My doctoral work at CDS, affiliated with Jawaharlal Nehru University, focuses on uncovering 
+          how migration flows shape and are shaped by global trade patterns.
+        </p>
+        <p>
+          Alongside my PhD, I serve as a Research Associate in the Trade Analytics division at the 
+          Indian Institute of Foreign Trade (IIFT), New Delhi — contributing to applied research 
+          on trade policy and economic development.
+        </p>
+        <p>
+          I am passionate about translating rigorous academic inquiry into insights that inform 
+          migration and trade policies with real economic development outcomes.
+        </p>
+      </div>
+      <div>
+        <div class="affiliations">
+          <div class="affiliation-item">
+            <div class="affil-dot"></div>
+            <div>
+              <div class="affil-title">Indian Institute of Foreign Trade (IIFT)</div>
+              <div class="affil-sub">Research Associate, Trade Analytics Division<br>B-21 Qutab Institutional Area, New Delhi – 110016</div>
+            </div>
+          </div>
+          <div class="affiliation-item">
+            <div class="affil-dot"></div>
+            <div>
+              <div class="affil-title">Centre for Development Studies (CDS)</div>
+              <div class="affil-sub">PhD Candidate (JNU Affiliated)<br>Prasanth Nagar, Ulloor, Trivandrum – 695011</div>
+            </div>
+          </div>
+          <div class="affiliation-item">
+            <div class="affil-dot"></div>
+            <div>
+              <div class="affil-title">Jawaharlal Nehru University (JNU)</div>
+              <div class="affil-sub">Doctoral Affiliation, New Delhi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Research</h2>
+    </div>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="card-accent-line"></div>
+        <div class="card-tag">Doctoral Research · Ongoing</div>
+        <div class="card-title">International Migration & International Trade: Exploring the Nexus</div>
+        <div class="card-body">
+          Investigating how migration flows create trade linkages through networks, preferences, 
+          and institutional channels — with a focus on South Asia and the Gulf corridor.
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="card-accent-line"></div>
+        <div class="card-tag">Trade Policy · IIFT</div>
+        <div class="card-title">Trade Analytics & Policy Research</div>
+        <div class="card-body">
+          Applied research on India's trade performance, export competitiveness, and policy 
+          implications at the Trade Analytics Division of IIFT Delhi.
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="card-accent-line"></div>
+        <div class="card-tag">Development Economics</div>
+        <div class="card-title">Migration, Remittances & Development</div>
+        <div class="card-body">
+          Examining how remittance flows and migrant networks influence economic development 
+          outcomes in sending countries, particularly Kerala and South India.
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="card-accent-line"></div>
+        <div class="card-tag">Trade Dynamics</div>
+        <div class="card-title">Global Value Chains & Emerging Economies</div>
+        <div class="card-body">
+          Understanding how developing country participation in global value chains creates 
+          pathways for economic upgrading and structural transformation.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- READING SHELF -->
+  <section id="reading">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Trade & Migration: A Reading Shelf</h2>
+    </div>
+
+    <div class="shelf-tabs">
+      <button class="tab-btn active" onclick="switchTab('trade', this)">Trade</button>
+      <button class="tab-btn" onclick="switchTab('migration', this)">Migration</button>
+    </div>
+
+    <div id="trade" class="shelf-list active">
+      <div class="shelf-item">
+        <span class="shelf-num">01</span>
+        <div class="shelf-info">
+          <div class="shelf-title">The Heckscher-Ohlin Model of Trade</div>
+          <div class="shelf-author">Foundational Theory · Factor Endowments & Trade Patterns</div>
+        </div>
+      </div>
+      <div class="shelf-item">
+        <span class="shelf-num">02</span>
+        <div class="shelf-info">
+          <div class="shelf-title">Gravity Models of International Trade</div>
+          <div class="shelf-author">Empirical Trade Literature · Anderson & Van Wincoop</div>
+        </div>
+      </div>
+      <div class="shelf-item">
+        <span class="shelf-num">03</span>
+        <div class="shelf-info">
+          <div class="shelf-title">The New New Trade Theory</div>
+          <div class="shelf-author">Firm Heterogeneity · Melitz (2003)</div>
+        </div>
+      </div>
+      <div class="shelf-item">
+        <span class="shelf-num">04</span>
+        <div class="shelf-info">
+          <div class="shelf-title">Global Value Chains in a Postcrisis World</div>
+          <div class="shelf-author">Cattaneo, Gereffi & Staritz · World Bank</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="migration" class="shelf-list">
+      <div class="shelf-item">
+        <span class="shelf-num">01</span>
+        <div class="shelf-info">
+          <div class="shelf-title">The Age of Migration</div>
+          <div class="shelf-author">Castles, de Haas & Miller</div>
+        </div>
+      </div>
+      <div class="shelf-item">
+        <span class="shelf-num">02</span>
+        <div class="shelf-info">
+          <div class="shelf-title">Networks and International Trade</div>
+          <div class="shelf-author">Migrants as Trade Facilitators · Diaspora Networks</div>
+        </div>
+      </div>
+      <div class="shelf-item">
+        <span class="shelf-num">03</span>
+        <div class="shelf-info">
+          <div class="shelf-title">Immigrants and International Trade</div>
+          <div class="shelf-author">Gould (1994) · Preference & Information Channels</div>
+        </div>
+      </div>
+      <div class="shelf-item">
+        <span class="shelf-num">04</span>
+        <div class="shelf-info">
+          <div class="shelf-title">Remittances & Development</div>
+          <div class="shelf-author">World Bank Reports · South Asia Focus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-wrap">
+      <div>
+        <p class="contact-intro">"Open to collaborations, discussions on trade & migration economics, and academic exchanges."</p>
+        <div class="contact-links">
+          <a href="http://linkedin.com/in/sabeer-vc-6672a613a" target="_blank" class="btn btn-outline">LinkedIn</a>
+          <a href="https://twitter.com/SabeerVCsabi" target="_blank" class="btn btn-outline">Twitter / X</a>
+          <a href="https://github.com/sabeervc/Sabeervc" target="_blank" class="btn btn-outline">GitHub</a>
+        </div>
+      </div>
+      <div>
+        <div class="contact-detail">
+          <div class="contact-label">Primary Email</div>
+          <div class="contact-value"><a href="mailto:sabeer20phd@cds.ac.in">sabeer20phd@cds.ac.in</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">IIFT Email</div>
+          <div class="contact-value"><a href="mailto:sabeer@iift.edu">sabeer@iift.edu</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">Personal Email</div>
+          <div class="contact-value"><a href="mailto:vcsabeer@gmail.com">vcsabeer@gmail.com</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">IIFT Address</div>
+          <div class="contact-value">B-21 Qutab Institutional Area, New Delhi – 110016</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-label">CDS Address</div>
+          <div class="contact-value">Prasanth Nagar, Medical College, Ulloor, Trivandrum – 695011</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 <span>Vadakke Cholakkakath Sabeer</span>. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function switchTab(id, btn) {
+      document.querySelectorAll('.shelf-list').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
